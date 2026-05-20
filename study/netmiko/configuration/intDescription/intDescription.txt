@@ -1,0 +1,3 @@
+interface gig 0/0
+desc *** TO WAN ****
+end

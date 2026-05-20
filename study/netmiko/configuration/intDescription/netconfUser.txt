@@ -1,0 +1,2 @@
+username netconf priv 15 secret cisco
+netconf-yang

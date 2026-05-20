@@ -1,0 +1,17 @@
+netmiko
+paramiko
+napalm
+nornir
+jinja2
+pyyaml
+textfsm
+ntc-templates
+rich
+requests
+python-dotenv
+ncclient
+requests
+
+pytest
+black
+ruff
