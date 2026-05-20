@@ -1,6 +1,13 @@
 import re
+import sys
 import time
 from netmiko import ConnectHandler
+
+def get_clean_input(prompt_text):
+    """Bypasses standard input glitches by reading directly from stdin stream."""
+    sys.stdout.write(prompt_text)
+    sys.stdout.flush()
+    return sys.stdin.readline().strip()
 
 def normalize_mac(mac_str):
     """Converts various MAC formats to Cisco continuous hex format (aabb.ccdd.eeff)"""
@@ -158,21 +165,18 @@ def trace_via_router_jump(router_ip, user_input, username, password):
         
     router_conn.disconnect()
 
-# --- ALL INPUTS COHESIVELY GATHERED FIRST ---
+
+# --- STREAM-BASED PROMPT GATHERING ---
 if __name__ == "__main__":
     print("=" * 60)
     print(" L2 TRUNK-MARCHING PORT LOCATOR")
     print("=" * 60)
     
-    # Gathering data in a continuous, chronological block
-    ROUTER_GATEWAY = input("Step 1: Enter Reachable Router IP: ").strip()
-    USER_SEARCH = input("Step 2: Enter Target IP or MAC to locate: ").strip()
+    # Utilizing sys.stdin.readline() wrapper to guarantee no terminal environment breaks
+    ROUTER_GATEWAY = get_clean_input("Step 1: Enter Reachable Router IP: ")
+    USER_SEARCH    = get_clean_input("Step 2: Enter Target IP or MAC to locate: ")
+    INPUT_USER     = get_clean_input("Step 3: Enter Network SSH Username: ")
+    INPUT_PASS     = get_clean_input("Step 4: Enter Network SSH Password: ")
     
-    print("\n" + "-" * 40)
-    print(" ENTER DEVICE ACCESS CREDENTIALS")
-    print("-" * 40)
-    INPUT_USER = input("SSH Username: ").strip()
-    INPUT_PASS = input("SSH Password: ").strip()
-    
-    print(f"\n[+] Processing... Starting trace for target: {USER_SEARCH}")
+    print(f"\n[+] Processing... Starting dynamic trace for target: {USER_SEARCH}")
     trace_via_router_jump(ROUTER_GATEWAY, USER_SEARCH, INPUT_USER, INPUT_PASS)
