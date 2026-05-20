@@ -165,7 +165,7 @@ if __name__ == "__main__":
     print("=" * 60)
     
     # Gathering data in a continuous, chronological block
-    ROUTER_GATEWAY = input("Step 1: Enter Reachable Router IP (e.g., 192.168.20.1): ").strip()
+    ROUTER_GATEWAY = input("Step 1: Enter Reachable Router IP: ").strip()
     USER_SEARCH = input("Step 2: Enter Target IP or MAC to locate: ").strip()
     
     print("\n" + "-" * 40)
