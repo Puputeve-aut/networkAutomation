@@ -1,3 +1,0 @@
-interface gig 0/0
-no description
-end
